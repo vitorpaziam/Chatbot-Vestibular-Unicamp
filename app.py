@@ -21,7 +21,7 @@ def get_conversation_chain(vector_store: FAISS) -> ConversationalRetrievalChain:
 
 
 def handle_userinput(user_question: str):
-    response = st.session_state.conversation({'question': user_question})
+    response = conversation({'question': user_question})
     st.session_state.chat_history.append(response['chat_history'])
 
     for i in range(len(st.session_state.chat_history)):
@@ -62,14 +62,9 @@ def main():
     as diferentes etapas do processo de admissão e valiosas dicas para que os candidatos possam se preparar de forma abrangente 
     e eficaz.''')
 
-    # Initialize state variables chat history and conversation chain
+    # Initialize state session variable chat history
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
-    if "conversation" not in st.session_state:
-        st.session_state.conversation = None
-
-    # Create conversation chain
-    st.session_state.conversation = get_conversation_chain(vector_store)
 
     if query := st.chat_input("Escreva sua dúvida..."):
        handle_userinput(query)
@@ -77,7 +72,8 @@ def main():
 
 if __name__ == "__main__":
 
-    # Initialize vector store
+    # Initialize vector store and conversation chain
     vector_store = pdf_data_process(DATA_FILE)
+    conversation = get_conversation_chain(vector_store)
     
     main()
