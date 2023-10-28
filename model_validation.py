@@ -11,19 +11,18 @@ from sklearn.metrics.pairwise import cosine_similarity
 DATA_FILE = "vestibular-data.pdf"
 
 
-def generate_validation_data(conversation: ConversationalRetrievalChain):
+def generate_validation_data(conversation: ConversationalRetrievalChain, file_name: str):
     # Carregar o conjunto de dados de teste com as respostas anteriores, se existirem
     try:
-        test_data = pd.read_csv("dataset/testset_with_model_answers.csv")
+        test_data = pd.read_csv(f"dataset/{file_name}_with_model_answers.csv")
     except FileNotFoundError:
-        test_data = pd.read_csv("dataset/testset.csv")
+        test_data = pd.read_csv(f"dataset/{file_name}.csv")
 
     # Inicializar o vetorizador TF-IDF
     vectorizer = TfidfVectorizer()
 
     # Percorrer cada pergunta e resposta no conjunto de dados de teste
-    for index, row in test_data[78::].iterrows():
-        print(index)
+    for index, row in test_data.iterrows():
         user_question = row['generated_question']
         expected_answer = row['generated_answer']
 
@@ -43,7 +42,7 @@ def generate_validation_data(conversation: ConversationalRetrievalChain):
         test_data.at[index, 'model_answer_score'] = similarity_score.max()
 
     # Salvar o conjunto de dados atualizado em um novo arquivo CSV
-    test_data.to_csv("dataset/testset_with_model_answers.csv", index = False, float_format = '%.3f')
+    test_data.to_csv(f"dataset/{file_name}_with_model_answers.csv", index = False, float_format = '%.3f')
 
 
 def get_conversation_chain(vector_store: FAISS) -> ConversationalRetrievalChain:
@@ -63,6 +62,7 @@ def setup_model():
     conversation = get_conversation_chain(vector_store)
 
     # Create the data to validate the model
-    generate_validation_data(conversation)
+    generate_validation_data(conversation, "testset")
+    generate_validation_data(conversation, "testset_direct")
 
 setup_model()
