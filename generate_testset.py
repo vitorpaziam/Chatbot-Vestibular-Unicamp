@@ -4,9 +4,7 @@ import os
 import random
 
 from data_processing import get_pdf_text, get_text_chunks
-
-DATA_FILE = "vestibular-data.pdf" # Filename of the dataset PDF
-DATASET_DIRECTORY = "dataset" # Directory that stores the dataset
+from constants import DATA_FILE, DATASET_DIRECTORY
 
 # Query to generate a question
 QUESTION_GENERATOR_QUERY = "Escreva uma pergunta com o conteúdo contido no trecho: {}"

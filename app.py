@@ -5,11 +5,20 @@ from langchain.chat_models import ChatOpenAI
 from langchain.vectorstores import FAISS
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
-
-DATA_FILE = "vestibular-data.pdf"
+from constants import DATA_FILE
 
 
 def get_conversation_chain(vector_store: FAISS) -> ConversationalRetrievalChain:
+    """
+    Retrieves a conversation chain for the vector store.
+
+    Args:
+        vector_store (FAISS): The vector store of a data file.
+
+    Returns:
+        conversation_chain (ConversationalRetrievalChain): The conversation retrieval chain.
+    """
+
     llm = ChatOpenAI()
     memory = ConversationBufferMemory(memory_key = 'chat_history', return_messages = True)
     conversation_chain = ConversationalRetrievalChain.from_llm(
@@ -21,6 +30,13 @@ def get_conversation_chain(vector_store: FAISS) -> ConversationalRetrievalChain:
 
 
 def handle_userinput(user_question: str):
+    """
+    Handle user input and display chat messages.
+
+    Args:
+        user_question (str): The question provided by the user.
+    """
+
     response = conversation({'question': user_question})
     st.session_state.chat_history.append(response['chat_history'])
 

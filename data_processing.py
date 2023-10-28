@@ -5,9 +5,7 @@ from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
-
-VECTOR_STORE_DIRECTORY = "vectordb"
-DATASET_DIRECTORY = "dataset"
+from constants import DATASET_DIRECTORY, VECTOR_STORE_DIRECTORY
 
 
 def get_pdf_text(file_name: str) -> str:
@@ -60,7 +58,8 @@ def pdf_data_process(file_name: str) -> FAISS:
     load_dotenv()
     embeddings = OpenAIEmbeddings()
     
-    if os.path.exists(f"{VECTOR_STORE_DIRECTORY}/faiss_index"): # Verify whether the faiss_index has already been created locally
+    # Verify whether the faiss_index has already been created locally
+    if os.path.exists(f"{VECTOR_STORE_DIRECTORY}/faiss_index"): 
         vector_store = FAISS.load_local(f"{VECTOR_STORE_DIRECTORY}/faiss_index", embeddings)
     else:
         # Extracting the content of dataset pdf files
