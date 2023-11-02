@@ -7,7 +7,8 @@ from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from constants import DATA_FILE
+
+DOC_DATA_FILE = "vestibular-data.pdf"
 
 
 def generate_validation_data(conversation: ConversationalRetrievalChain, file_name: str):
@@ -79,7 +80,7 @@ def setup_model():
     Set up the model by initializing the vector store and conversation chain, and create data to validate the model.
     """
 
-    vector_store = pdf_data_process(DATA_FILE)
+    vector_store = pdf_data_process(DOC_DATA_FILE)
     conversation = get_conversation_chain(vector_store)
 
     generate_validation_data(conversation, "testset_direct")

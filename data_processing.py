@@ -5,7 +5,9 @@ from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
-from constants import DATASET_DIRECTORY, VECTOR_STORE_DIRECTORY
+
+VECTOR_STORE_DIRECTORY = "vectordb"
+DATASET_DIRECTORY = "dataset"
 
 
 def get_pdf_text(file_name: str) -> str:

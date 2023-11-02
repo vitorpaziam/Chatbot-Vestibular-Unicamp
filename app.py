@@ -5,7 +5,8 @@ from langchain.chat_models import ChatOpenAI
 from langchain.vectorstores import FAISS
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
-from constants import DATA_FILE
+
+DOC_DATA_FILE = "vestibular-data.pdf"
 
 
 def get_conversation_chain(vector_store: FAISS) -> ConversationalRetrievalChain:
@@ -89,7 +90,7 @@ def main():
 if __name__ == "__main__":
 
     # Initialize vector store and conversation chain
-    vector_store = pdf_data_process(DATA_FILE)
+    vector_store = pdf_data_process(DOC_DATA_FILE)
     conversation = get_conversation_chain(vector_store)
     
     main()

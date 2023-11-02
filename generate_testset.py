@@ -4,7 +4,9 @@ import os
 import random
 
 from data_processing import get_pdf_text, get_text_chunks
-from constants import DATA_FILE, DATASET_DIRECTORY
+
+DOC_DATA_FILE = "vestibular-data.pdf"
+DATASET_DIRECTORY = "dataset"
 
 # Query to generate a question
 QUESTION_GENERATOR_QUERY = "Escreva uma pergunta com o conteúdo contido no trecho: {}"
@@ -69,7 +71,7 @@ def create_testset_csv(text_blocks: list):
 
 def main():
     openai.api_key = "<YOUR_OPENAI_API_KEY>"
-    raw_text = get_pdf_text(DATA_FILE)
+    raw_text = get_pdf_text(DOC_DATA_FILE)
     text_blocks = get_text_chunks(raw_text, chunk_size = 2000, chunk_overlap = 200)
     create_testset_csv(text_blocks)
 
