@@ -64,7 +64,7 @@ streamlit run app.py
 
 ## Model Validation
 
-The process of creating the test set, testing the model, analysis of accuracy, and other discussions are presented in detail at the [model-validation notebook](https://colab.research.google.com/github/vitorpaziam/Chatbot-Vestibular-Unicamp/blob/main/model_validation.ipynb).
+The process of creating the test set, testing the model, analysis of accuracy, and other discussions are presented in detail at the [model-validation notebook](https://github.com/vitorpaziam/Chatbot-Vestibular-Unicamp/blob/main/docs/model_validation.ipynb).
 
 ## References
 
